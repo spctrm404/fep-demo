@@ -1,80 +1,75 @@
-$nav-p-x: 1rem;
-$nav-w-mx: 60rem;
-$body-p-x: 1.5rem;
-$body-w-mx: 75rem;
-$body-gap: 4rem;
+@import 'https://fonts.googleapis.com/css2?family=Radio+Canada+Big:ital,wght@0,400..700;1,400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap';
+
+$middle-w-mx: 75rem;
+$middle-p-x: 1.5rem;
+$middle-p-t: 4rem;
+$middle-p-b: $middle-p-t + 6rem;
+$middle-gap: 4rem;
 $sidebar-w: 17.5rem;
-$card-w-mn: 12.5rem;
 $main-gap: 2rem;
-$footer-p-x: $body-p-x;
-$footer-w-mx: 72.5rem;
+$card-w-mn: 15.625rem;
 
-// for dev
-div {
-  min-height: 1rem;
+body {
+  font-family: 'Radio Canada Big', sans-serif;
+  color: #10284b;
 }
 
-.wrapper {
-  margin-inline: auto;
-  background-color: rgb(0 0 0 / 10%);
-}
-
-.nav {
-  padding-inline: $nav-p-x;
-  background-color: #f6f6eb;
-
-  &__wrapper {
-    max-width: $nav-w-mx;
-  }
-}
-
-.body {
-  padding-inline: $body-p-x;
-  background-color: #fff;
+.middle {
+  padding-block: $middle-p-t $middle-p-b;
+  padding-inline: $middle-p-x;
 
   &__wrapper {
     display: grid;
-    grid-template-columns: $sidebar-w 1fr;
-    column-gap: $body-gap;
-    max-width: $body-w-mx;
+    grid-template-columns: $sidebar-w auto;
+    column-gap: $middle-gap;
+    max-width: $middle-w-mx;
+    margin-inline: auto;
   }
 }
 
 .sidebar {
-  min-height: 1rem;
-  background-color: aquamarine;
 }
 
 .main {
   display: grid;
-  grid-template-columns: minmax($card-w-mn, 1fr) repeat(
-      auto-fit,
-      minmax($card-w-mn, 1fr)
-    );
+
+  // grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax($card-w-mn, 1fr));
   gap: $main-gap;
-  min-height: 1rem;
 }
 
 .header {
   display: grid;
-  grid-template-columns: subgrid;
+  grid-template-rows: auto auto;
+  grid-template-columns: auto min-content;
   grid-column: 1 / -1;
-  background-color: bisque;
+  gap: 0.5rem 48px;
 
   &__title {
     grid-row: 1;
-    grid-column: 1 / -2;
+    grid-column: 1;
+    font-size: 3rem;
+    font-weight: 900;
   }
 
   &__description {
     grid-row: 2;
     grid-column: 1 / -1;
+    font-size: 1.25rem;
+    line-height: 1.875rem;
   }
 
-  &__view-more {
+  &__view-all {
+    display: block;
     grid-row: 1;
     grid-column: -2;
-    text-align: right;
+    align-self: center;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #381fd1;
+    text-transform: uppercase;
+    text-wrap: nowrap;
   }
 }
 
@@ -82,18 +77,75 @@ div {
   display: grid;
   grid-template-columns: subgrid;
   grid-column: 1 / -1;
-  row-gap: $main-gap;
+  grid-auto-rows: 1fr;
+  gap: $main-gap;
 }
 
 .card {
-  background-color: cornflowerblue;
-}
+  display: grid;
+  overflow: hidden;
+  text-decoration: none;
+  border-radius: 0.5rem;
 
-.footer {
-  padding-inline: $footer-p-x;
-  background-color: #10284b;
+  &--type {
+    &-a {
+      gap: 0.75rem;
+      padding: 24px;
+      border: 0.0625rem solid #cbcbcd;
+    }
 
-  &__wrapper {
-    max-width: $footer-w-mx;
+    &-b {
+      > * {
+        grid-row: 1;
+        grid-column: 1;
+      }
+
+      .card__title {
+        margin: 32px;
+      }
+
+      &:nth-child(2) {
+        background-color: #f3f2fc;
+      }
+
+      &:nth-child(3) {
+        background-color: #f6f6eb;
+      }
+    }
+  }
+
+  &__icon {
+    width: 2.5rem;
+    aspect-ratio: 1 / 1;
+    object-fit: contain;
+    border: 0.0625rem solid #cbcbcd;
+    border-radius: 0.5rem;
+  }
+
+  &__category {
+    overflow-x: hidden;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4rem;
+    color: #381fd1;
+    text-overflow: ellipsis;
+    text-wrap: nowrap;
+  }
+
+  &__title {
+    display: -webkit-box;
+    height: 3lh;
+    overflow: hidden;
+    font-size: 1.5rem;
+    font-weight: 900;
+    line-height: 1.65rem;
+    color: #10284b;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  &__bg {
+    align-self: end;
   }
 }
