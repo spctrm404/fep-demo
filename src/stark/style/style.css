@@ -20,7 +20,8 @@ body {
 .main {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr));
-  gap: 2rem;
+  -moz-column-gap: 2rem;
+       column-gap: 2rem;
 }
 
 .header {
@@ -28,19 +29,27 @@ body {
   grid-template-rows: auto auto;
   grid-template-columns: auto min-content;
   grid-column: 1/-1;
-  gap: 0.5rem 48px;
+  gap: 0.5rem 3rem;
+  margin-top: 64px;
+}
+.header:first-child {
+  margin-top: 0;
 }
 .header__title {
   grid-row: 1;
   grid-column: 1;
   font-size: 3rem;
   font-weight: 900;
+  line-height: 1.1;
+  color: #10284b;
 }
 .header__description {
   grid-row: 2;
   grid-column: 1/-1;
   font-size: 1.25rem;
-  line-height: 1.875rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #10284b;
 }
 .header__view-all {
   display: block;
@@ -48,11 +57,12 @@ body {
   grid-column: -2;
   align-self: center;
   font-family: "Roboto Mono", monospace;
-  font-size: 1rem;
-  font-weight: 700;
-  color: #381fd1;
   text-transform: uppercase;
   text-wrap: nowrap;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #381fd1;
 }
 
 .cards {
@@ -61,6 +71,10 @@ body {
   grid-column: 1/-1;
   grid-auto-rows: 1fr;
   gap: 2rem;
+  margin-top: 24px;
+}
+.cards:first-child {
+  margin-top: 0;
 }
 
 .card {
@@ -71,15 +85,12 @@ body {
 }
 .card--type-a {
   gap: 0.75rem;
-  padding: 24px;
+  padding: 1.5rem 1.5rem 2rem;
   border: 0.0625rem solid #cbcbcd;
 }
 .card--type-b > * {
   grid-row: 1;
   grid-column: 1;
-}
-.card--type-b .card__title {
-  margin: 32px;
 }
 .card--type-b:nth-child(2) {
   background-color: #f3f2fc;
@@ -98,24 +109,28 @@ body {
 .card__category {
   overflow-x: hidden;
   font-family: "Roboto Mono", monospace;
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.4rem;
-  color: #381fd1;
   text-overflow: ellipsis;
   text-wrap: nowrap;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: #381fd1;
 }
 .card__title {
   display: -webkit-box;
   height: 3lh;
   overflow: hidden;
-  font-size: 1.5rem;
-  font-weight: 900;
-  line-height: 1.65rem;
-  color: #10284b;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1.1;
+  color: #10284b;
 }
+.card--type-b .card__title {
+  margin: 2rem;
+}
+
 .card__bg {
   align-self: end;
 }
