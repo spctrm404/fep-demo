@@ -4,6 +4,68 @@ body {
   color: #10284b;
 }
 
+.nav {
+  padding: 1rem;
+  background-color: #f6f6eb;
+}
+.nav__wrapper {
+  display: grid;
+  grid-template-columns: 2rem repeat(4, min-content) auto repeat(2, min-content);
+  -moz-column-gap: 1rem;
+       column-gap: 1rem;
+  max-width: 60rem;
+  margin-inline: auto;
+}
+
+.menu {
+  padding-left: 0;
+  margin-block: 0;
+  list-style: none;
+}
+.menu--pos-left {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1/span 5;
+}
+.menu--pos-right {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: -3/-1;
+}
+.menu > li {
+  align-self: center;
+}
+.menu__item {
+  font-size: 0.875rem;
+  font-weight: 900;
+  line-height: 1.25rem;
+  color: #381fd1;
+}
+.menu__item--type-logo {
+  aspect-ratio: 1/1;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  min-height: 2rem;
+  padding-inline: 0.5rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  text-wrap: nowrap;
+  border: 2px solid rgba(0, 0, 0, 0);
+  border-radius: 0.5rem;
+  transition: border 250ms ease-out;
+}
+.btn:hover {
+  border: 2px solid rgb(0, 0, 0);
+}
+.btn--type-filled {
+  color: #fff;
+  background-color: #381fd1;
+}
+
 .middle {
   padding-block: 4rem 10rem;
   padding-inline: 1.5rem;

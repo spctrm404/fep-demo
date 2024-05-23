@@ -46,12 +46,6 @@ $typography: (
     line-height: 1.4,
     color: #381fd1,
   ),
-  menu-text: (
-    font-size: 0.875rem,
-    font-weight: 900,
-    line-height: 1.25rem,
-    color: #381fd1,
-  ),
 );
 
 @mixin apply-typography($key) {
@@ -66,80 +60,6 @@ $typography: (
 body {
   font-family: 'Radio Canada Big', sans-serif;
   color: #10284b;
-}
-
-.nav {
-  $nav-p: 1rem;
-  $nav-gap: 1rem;
-
-  padding: $nav-p;
-  background-color: #f6f6eb;
-
-  &__wrapper {
-    display: grid;
-    grid-template-columns: 2rem repeat(4, min-content) auto repeat(
-        2,
-        min-content
-      );
-    column-gap: $nav-gap;
-    max-width: 60rem;
-    margin-inline: auto;
-  }
-}
-
-.menu {
-  padding-left: 0;
-  margin-block: 0;
-  list-style: none;
-
-  &--pos {
-    &-left {
-      display: grid;
-      grid-template-columns: subgrid;
-      grid-column: 1 / span 5;
-    }
-
-    &-right {
-      display: grid;
-      grid-template-columns: subgrid;
-      grid-column: -3 / -1;
-    }
-  }
-
-  > li {
-    align-self: center;
-  }
-
-  &__item {
-    @include apply-typography('menu-text');
-
-    &--type-logo {
-      aspect-ratio: 1 / 1;
-    }
-  }
-}
-
-.btn {
-  display: flex;
-  align-items: center;
-  min-height: 2rem;
-  padding-inline: 0.5rem;
-  text-align: center;
-  text-decoration: none;
-  text-transform: uppercase;
-  text-wrap: nowrap;
-  border: 2px solid rgb(0 0 0 / 0%);
-  border-radius: 0.5rem;
-  transition: border 250ms ease-out;
-
-  &:hover {
-    border: 2px solid rgb(0 0 0 / 100%);
-  }
-
-  &--type-filled {
-    color: #fff;
-    background-color: #381fd1;
-  }
 }
 
 .middle {
