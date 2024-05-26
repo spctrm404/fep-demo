@@ -1,0 +1,90 @@
+$color-blue: #5ea3ec;
+$color-red: #f64444;
+$color-yellow: #ffb400;
+$color-white: #fff;
+$color-black: #000;
+$column-close-w: 3.75rem;
+$column-num: 4;
+
+.grid {
+  display: grid;
+  grid-template-rows: 100vh auto;
+
+  @for $i from 1 through $column-num {
+    @if $i == 1 {
+      &[data-selected-nth='#{$i}'] {
+        grid-template-columns:
+          calc(100% - ($column-num - 1) * $column-close-w)
+          repeat(calc($column-num - $i), $column-close-w);
+      }
+    } @else if $i == $column-num {
+      &[data-selected-nth='#{$i}'] {
+        grid-template-columns: repeat(calc($i - 1), $column-close-w) calc(
+            100% - ($column-num - 1) * $column-close-w
+          );
+      }
+    } @else {
+      &[data-selected-nth='#{$i}'] {
+        grid-template-columns:
+          repeat(calc($i - 1), $column-close-w) calc(
+            100% - ($column-num - 1) * $column-close-w
+          )
+          repeat(calc($column-num - $i), $column-close-w);
+      }
+    }
+  }
+
+  &__column {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: 1 / -1;
+
+    &:nth-of-type(1) {
+      background-color: $color-white;
+    }
+
+    &:nth-of-type(2) {
+      background-color: $color-blue;
+    }
+
+    &:nth-of-type(3) {
+      background-color: $color-red;
+    }
+
+    &:nth-of-type(4) {
+      background-color: $color-yellow;
+    }
+  }
+}
+
+.sticky {
+  $sticky-p-x: 0.3125rem;
+  $sticky-p-y: 3.75rem;
+
+  position: sticky;
+  top: 0;
+  grid-row: 1;
+  grid-column: 1;
+  padding-block: $sticky-p-y;
+  padding-inline: $sticky-p-x;
+  overflow: hidden;
+  cursor: pointer;
+
+  &__head {
+    text-align: center;
+  }
+
+  &__center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translateY(-50%) translateX(-50%) rotate(90deg);
+    transform-origin: center;
+  }
+}
+
+.content {
+  grid-row: 1 / -1;
+  grid-column: 1;
+}
