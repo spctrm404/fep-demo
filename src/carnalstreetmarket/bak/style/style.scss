@@ -1,6 +1,9 @@
 @use 'sass:map';
 @use 'sass:list';
 
+@import 'https://fonts.googleapis.com/css2?family=Spline+Sans+Mono:wght@300..700&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400..900&display=swap';
+
 $color-blue: #5ea3ec;
 $color-red: #f64444;
 $color-yellow: #ffb400;
@@ -8,15 +11,21 @@ $color-white: #fff;
 $color-black: #000;
 $column-close-w: 3.75rem;
 $column-num: 4;
-$grid-time: (
-  column-delay: 50ms,
-  column-duration: 300ms,
-);
+$grid-duration: 300ms;
+$sticky-on-duration: 150ms;
+$sticky-off-duration: 300ms;
+$content-on-duration: 250ms;
+$content-off-duration: 150ms;
+$grid-delay: max($content-off-duration, $sticky-on-duration) + 300ms;
+$sticky-off-delay: $content-off-duration + $grid-duration + 300ms;
+$content-on-delay: $grid-duration + $grid-delay;
+$font-sans: ('Spline Sans Mono', monospace);
+$font-serif: ('Playfair Display', serif);
 
 .grid {
   display: grid;
   grid-template-rows: 100vh auto;
-  transition: grid-template-columns map.get($grid-time, 'column-duration');
+  transition: grid-template-columns $grid-duration ease-in $grid-delay;
 
   @for $i from 1 through $column-num {
     &[data-selected-nth='#{$i}'] {
@@ -60,11 +69,13 @@ $grid-time: (
 }
 
 .sticky {
+  $sticky-1-p-x: 3.75rem;
   $sticky-p-x: 0.3125rem;
   $sticky-p-y: 3.75rem;
 
   position: sticky;
   top: 0;
+  z-index: 2;
   grid-row: 1;
   grid-column: 1;
   justify-self: start;
@@ -72,10 +83,47 @@ $grid-time: (
   padding-block: $sticky-p-y;
   padding-inline: $sticky-p-x;
   overflow: hidden;
+  font-family: $font-sans;
+  font-size: 20px;
+  line-height: 1.325;
+  text-transform: capitalize;
   cursor: pointer;
+
+  @at-root .grid__column:nth-of-type(1) & {
+    transition: padding-inline $grid-duration ease-in $grid-delay,
+      width $grid-duration ease-in $grid-delay;
+  }
+
+  @at-root .grid[data-selected-nth='1'] .grid__column:nth-of-type(1) & {
+    width: calc(60px + 2 * $sticky-1-p-x);
+    padding-inline: $sticky-1-p-x;
+    transition: padding-inline $sticky-off-duration ease-in $grid-delay,
+      width $sticky-off-duration ease-in $grid-delay;
+  }
+
+  @for $i from 2 through $column-num {
+    @at-root .grid__column:nth-of-type(#{$i}) & {
+      opacity: 1;
+      transition: opacity $sticky-on-duration ease-in;
+    }
+
+    @at-root .grid[data-selected-nth='#{$i}']
+        .grid__column:nth-of-type(#{$i})
+        & {
+      opacity: 0;
+      transition: opacity $sticky-off-duration ease-in $sticky-off-delay;
+    }
+  }
 
   &__head {
     text-align: center;
+
+    @at-root .grid__column:nth-of-type(1) & {
+      svg {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+      }
+    }
   }
 
   &__center {
@@ -89,6 +137,100 @@ $grid-time: (
 }
 
 .content {
+  z-index: 1;
   grid-row: 1 / -1;
   grid-column: 1;
+  opacity: 0;
+  transition: opacity $content-off-duration ease-in;
+
+  @for $i from 1 through $column-num {
+    @at-root .grid[data-selected-nth='#{$i}']
+        .grid__column:nth-of-type(#{$i})
+        & {
+      opacity: 1;
+      transition: opacity $content-on-duration ease-in $content-on-delay;
+    }
+  }
+}
+
+.section {
+  @at-root .grid__column:nth-of-type(1) & {
+    &:nth-of-type(1) {
+      padding-top: 15.625rem;
+
+      h1 {
+        grid-column: 1 / -1;
+        max-width: 30ch;
+        margin: 0;
+        font-family: $font-serif;
+        font-size: 4.6875rem;
+        font-weight: 400;
+        line-height: 5.375rem;
+        text-wrap: balance;
+      }
+    }
+
+    &:nth-of-type(2) {
+      img {
+        grid-column: 1 / -1;
+      }
+    }
+
+    &:nth-of-type(3) {
+      h2 {
+        grid-column: 1 / -1;
+        max-width: 15ch;
+        margin: 0;
+        font-family: $font-serif;
+        font-size: 7.0625rem;
+        font-weight: 400;
+        line-height: 9.3578rem;
+        text-wrap: balance;
+      }
+
+      .card {
+        grid-column-end: span 2;
+      }
+    }
+
+    &:nth-of-type(4) {
+      font-family: $font-sans;
+      text-align: center;
+
+      .wrapper * {
+        grid-column-end: span 2;
+      }
+
+      h2 {
+        margin: 0;
+        font-family: $font-serif;
+        font-size: 6.25rem;
+        font-weight: 400;
+        line-height: 6.25rem;
+      }
+    }
+  }
+}
+
+.wrapper {
+  $wrapper-p: 3.75rem;
+
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 3.75rem;
+  padding: $wrapper-p;
+
+  &--w-full {
+    padding-inline: 0;
+  }
+}
+
+.card {
+  font-family: $font-sans;
+  font-size: 0.875rem;
+  line-height: 1.5;
+
+  &__txt {
+    margin-top: 1.875rem;
+  }
 }
