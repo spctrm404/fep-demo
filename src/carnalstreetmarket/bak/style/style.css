@@ -1,18 +1,19 @@
 .grid {
   display: grid;
   grid-template-rows: 100vh auto;
+  transition: grid-template-columns 300ms;
 }
 .grid[data-selected-nth="1"] {
-  grid-template-columns: calc(100% - 11.25rem) repeat(3, 3.75rem);
+  grid-template-columns: calc(100% - 11.25rem) 3.75rem 3.75rem 3.75rem;
 }
 .grid[data-selected-nth="2"] {
-  grid-template-columns: repeat(1, 3.75rem) calc(100% - 11.25rem) repeat(2, 3.75rem);
+  grid-template-columns: 3.75rem calc(100% - 11.25rem) 3.75rem 3.75rem;
 }
 .grid[data-selected-nth="3"] {
-  grid-template-columns: repeat(2, 3.75rem) calc(100% - 11.25rem) repeat(1, 3.75rem);
+  grid-template-columns: 3.75rem 3.75rem calc(100% - 11.25rem) 3.75rem;
 }
 .grid[data-selected-nth="4"] {
-  grid-template-columns: repeat(3, 3.75rem) calc(100% - 11.25rem);
+  grid-template-columns: 3.75rem 3.75rem 3.75rem calc(100% - 11.25rem);
 }
 .grid__column {
   display: grid;
@@ -37,6 +38,8 @@
   top: 0;
   grid-row: 1;
   grid-column: 1;
+  justify-self: start;
+  width: 3.75rem;
   padding-block: 3.75rem;
   padding-inline: 0.3125rem;
   overflow: hidden;

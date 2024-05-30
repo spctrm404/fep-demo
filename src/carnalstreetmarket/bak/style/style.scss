@@ -1,3 +1,6 @@
+@use 'sass:map';
+@use 'sass:list';
+
 $color-blue: #5ea3ec;
 $color-red: #f64444;
 $color-yellow: #ffb400;
@@ -5,32 +8,31 @@ $color-white: #fff;
 $color-black: #000;
 $column-close-w: 3.75rem;
 $column-num: 4;
+$grid-time: (
+  column-delay: 50ms,
+  column-duration: 300ms,
+);
 
 .grid {
   display: grid;
   grid-template-rows: 100vh auto;
+  transition: grid-template-columns map.get($grid-time, 'column-duration');
 
   @for $i from 1 through $column-num {
-    @if $i == 1 {
-      &[data-selected-nth='#{$i}'] {
-        grid-template-columns:
-          calc(100% - ($column-num - 1) * $column-close-w)
-          repeat(calc($column-num - $i), $column-close-w);
-      }
-    } @else if $i == $column-num {
-      &[data-selected-nth='#{$i}'] {
-        grid-template-columns: repeat(calc($i - 1), $column-close-w) calc(
-            100% - ($column-num - 1) * $column-close-w
+    &[data-selected-nth='#{$i}'] {
+      $val: ();
+      @for $j from 1 through $column-num {
+        @if $j != $i {
+          $val: list.append($val, $column-close-w);
+        } @else {
+          $val: list.append(
+            $val,
+            calc(100% - ($column-num - 1) * $column-close-w)
           );
+        }
       }
-    } @else {
-      &[data-selected-nth='#{$i}'] {
-        grid-template-columns:
-          repeat(calc($i - 1), $column-close-w) calc(
-            100% - ($column-num - 1) * $column-close-w
-          )
-          repeat(calc($column-num - $i), $column-close-w);
-      }
+
+      grid-template-columns: $val;
     }
   }
 
@@ -65,6 +67,8 @@ $column-num: 4;
   top: 0;
   grid-row: 1;
   grid-column: 1;
+  justify-self: start;
+  width: $column-close-w;
   padding-block: $sticky-p-y;
   padding-inline: $sticky-p-x;
   overflow: hidden;
