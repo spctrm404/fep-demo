@@ -10,7 +10,7 @@
   </head>
   <body>
     <div id="grid" class="grid" data-selected-nth="1">
-      <section class="grid__column">
+      <section class="column">
         <div class="sticky">
           <div class="sticky__head">
             <svg
@@ -155,7 +155,7 @@
           </div>
         </div>
         <div class="content">
-          <div class="content__section">
+          <div class="section">
             <h1>
               Canal Street Market is a carefully curated retail market, food
               hall & community space open year-round at 265 Canal Street.
@@ -165,7 +165,7 @@
           <div class="section section--fullwidth">
             <img src="./assets/market.jpg" alt="" />
           </div>
-          <div class="content__section">
+          <div class="section">
             <h2>A New Kind of Market</h2>
             <div class="card">
               <img src="./assets/card_1_1.jpg" alt="" class="card__img" />
@@ -190,9 +190,9 @@
               </div>
             </div>
           </div>
-          <div class="content__section">
-            <div class="layout">
-              <div class="graphic">
+          <div class="section">
+            <div class="row row--custom-grid">
+              <div class="graphic-text">
                 <svg
                   viewBox="0 12 116 58"
                   version="1.1"
@@ -229,7 +229,7 @@
                 Market<br />
                 Events
               </h2>
-              <div class="graphic">
+              <div class="graphic-text">
                 <svg
                   viewBox="0 12 116 58"
                   version="1.1"
@@ -263,42 +263,51 @@
                 </svg>
               </div>
             </div>
-            <div class="bg"></div>
-            <a class="card" href="#">
-              <p class="date">09/21</p>
-              <p class="description">Small Business Retail Pop Up Weekend!</p>
+            <div class="row row--decorative"></div>
+            <div class="row row--cards">
+              <a class="card" href="#">
+                <p class="date">09/21</p>
+                <p class="description">Small Business Retail Pop Up Weekend!</p>
+              </a>
+              <a class="card" href="#">
+                <p class="date">02/07</p>
+                <p class="description">
+                  New Balance x Paperboy Paris by Greenhouse @ Canal Street
+                  Market 02/07
+                </p>
+              </a>
+              <a class="card" href="#">
+                <p class="date">12/11</p>
+                <p class="description">Hack City 12/11</p>
+              </a>
+            </div>
+            <div class="row row--decorative row--contain-btn">
+              <a class="btn" href="#">see all</a>
+            </div>
+          </div>
+          <div class="section">
+            <a class="address" href="#"><h3>265 Canal St. New York, NY</h3></a>
+            <a class="map" href="#">
+              <img src="./assets/map.jpg" alt="" />
             </a>
-            <a class="card" href="#">
-              <p class="date">02/07</p>
-              <p class="description">
-                New Balance x Paperboy Paris by Greenhouse @ Canal Street Market
-                02/07
-              </p>
-            </a>
-            <a class="card" href="#">
-              <p class="date">12/11</p>
-              <p class="description">Hack City 12/11</p>
-            </a>
-            <div class="bg"></div>
-            <a class="btn" href="#">see all</a>
           </div>
         </div>
       </section>
-      <section class="grid__column">
+      <section class="column">
         <div class="sticky">
           <div class="sticky__head">餐饮</div>
           <div class="sticky__center">food</div>
         </div>
         <div class="content"></div>
       </section>
-      <section class="grid__column">
+      <section class="column">
         <div class="sticky">
           <div class="sticky__head">購物</div>
           <div class="sticky__center">retail</div>
         </div>
         <div class="content"></div>
       </section>
-      <section class="grid__column">
+      <section class="column">
         <div class="sticky">
           <div class="sticky__head">文化</div>
           <div class="sticky__center">community</div>
@@ -307,7 +316,9 @@
       </section>
     </div>
     <script>
-      let bg1 = document.querySelector('.bg');
+      let bg1 = document.querySelectorAll(
+        '.column:nth-of-type(1) .section:nth-of-type(4) .decorative'
+      );
       console.log(bg1);
     </script>
   </body>
